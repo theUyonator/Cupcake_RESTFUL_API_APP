@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cupcakes</title>
+    <link rel="stylesheet" href="/flask-cupcakes/static/cupcakes.css">
+</head>
+<body>
+    
+    <h1>List of cupcakes</h1>
+
+    <ul id="cupcake-list">
+
+    </ul>
+
+    <h2>Add a new cupcake</h2>
+    <form id="cupcake-form">
+        <div>
+            <label for="cupcake-flavor">
+            Flavor
+            </label>
+            <input type="text" id="cupcake-flavor" name="flavor" placeholder="Enter Cupcake Flavor"/>
+        </div>
+
+        <div>
+            <label for="cupcake-size">
+                Size
+            </label>
+            <input type="text" id="cupcake-size" name="size" placeholder="Enter Cupcake Size"/>
+        </div>
+
+        <div>
+            <label for="cupcake-rating">
+                Rating
+            </label>
+            <input type="number" id="cupcake-rating" name="rating"/>
+        </div>
+
+        <div>
+            <label for="cupcake-image">
+                Image
+            </label>
+            <input type="image" id="cupcake-image" name="image"/>
+        </div>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <script src="https://unpkg.com/jquery"></script>
+    <script src="https://unpkg.com/axios/dist/axios.js"></script>
+    <script src="/flask-cupcakes/static/cupcakes.js"></script>
+
+</body>
+</html>
