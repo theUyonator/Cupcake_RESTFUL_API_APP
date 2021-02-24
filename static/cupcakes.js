@@ -3,23 +3,24 @@ In this file we'll be making all requests to retireve and add cupcakes from the 
 using axios.
 */
 
-const BASE_URL = "http://localhost:5000/api"
+const BASE_URL = "http://127.0.0.1:5000//api"
 
 //This function generates cupcake html
 
 function generate_html(cupcake){
 
     return `
-    <div data-cupcake-id=${cupcake.id}>
-        <li>
+    <li>
+        <div data-cupcake-id=${cupcake.id}>
             ${cupcake.flavor} / ${cupcake.size} / ${cupcake.rating}
             <button class="dlt-cupcake">X</button>
-        </li>
-
-        <img class="Cupcake-img" 
-             src="${cupcake.image}" 
-             alt="(no image provided)">
-    </div>
+            <p>
+            <img class="Cupcake-img" 
+            src="${cupcake.image}" 
+            alt="(no image provided)">
+            </p>
+        </div>
+     </li>
     `
 }
 
@@ -29,7 +30,7 @@ async function showInitialCupcakes(){
 
     const res = await axios.get(`${BASE_URL}/cupcakes`);
 
-    for(let cupcakeData in res.data.cupcakes){
+    for(let cupcakeData of res.data.cupcakes){
         let newCupcake = $(generate_html(cupcakeData));
         $('#cupcake-list').append(newCupcake);
     }
@@ -37,7 +38,7 @@ async function showInitialCupcakes(){
 
 // Handle new cupcake form 
 
-$('#cupcake-form').on("submit", addCupcake(evt) )
+$('#cupcake-form').on("submit", addCupcake )
 
 async function addCupcake(evt){
     evt.preventDefault()
@@ -50,12 +51,11 @@ async function addCupcake(evt){
     image = $('#cupcake-image').val()
 
     const res = await axios.post(`${BASE_URL}/cupcakes`, {
-        params: {
-            'flavor': flavor,
-            'size': size,
-            'rating': rating,
-            'image': image
-        }
+    
+            flavor,
+            size,
+            rating,
+            image
     })
 
     let newCupcake = $(generate_html(res.data.cupcake));
@@ -72,7 +72,8 @@ $('#cupcake-list').on("click", ".dlt-cupcake", async function(e){
     let cupcakeId = $cupcake.attr("data-cupcake-id");
 
     await axios.delete(`${BASE_URL}/cupcakes/${cupcakeId}`)
-    $(this).parent().remove()
+    console.log('****** this is what the parent variable looks lke:', $(this).parent())
+    $(this).parent().parent().remove()
 
 
 });
